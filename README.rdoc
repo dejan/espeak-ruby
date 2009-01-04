@@ -2,6 +2,10 @@
 
 Ruby API for using espeak
 
+== example
+
+Pleas check examples dir
+
 == espeak
 
 espeak is a speech synthesizer software. It can be used as command-line program, or through shared libraries. This code uses espeak as command-line program. 
