@@ -1,21 +1,20 @@
-= espeak-ruby
+= speaker
 
-Ruby API for using espeak
+Speaker is the unified Ruby API for various Text-To-Speech software (currently espeak and festival)
 
 == example
 
-Pleas check examples dir
+	Speaker::Mp3.create("Hello World")
 
-== espeak
+... or if you want to be explicit about what tts software should be used:
 
-espeak is a speech synthesizer software. It can be used as command-line program, or through shared libraries. This code uses espeak as command-line program. 
-For more info about espeak, visit espeak.sourceforge.net.
+	Speaker::Espeak::Mp3.create("Hello World")
 
 == requirements
 
-* linux (I couldn't make espeak run on mac os x)
-* espeak
-* lame
+* festival(unix) http://www.cstr.ed.ac.uk/projects/festival/
+  or espeak(runs only in linux) espeak.sourceforge.net
+* lame http://lame.sourceforge.net/index.php
 
 == author
 

@@ -1,1 +1,1 @@
-require 'espeak-ruby'
+require 'speaker'
