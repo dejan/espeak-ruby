@@ -2,10 +2,11 @@
 
 espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-To-Speech mp3 files.
 
-* http://espeak.sourceforge.net - eSpeak is a compact open source software speech synthesizer for English and other languages, for Linux and Windows. 
-* http://lame.sourceforge.net - LAME is a high quality MPEG Audio Layer III (MP3) encoder licensed under the LGPL. 
+* eSpeak is a compact open source software speech synthesizer for English and other languages, for Linux and Windows. 
+* LAME is a high quality MPEG Audio Layer III (MP3) encoder licensed under the LGPL. 
 
-== examples
+== Example
+
 	require 'rubygems'
 	require 'espeak-ruby'
 
@@ -14,12 +15,12 @@ espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-T
 	espeak("Hello World")
 	espeak("Guten Tag", :lang => :de)
 
-== requirements
+== Requirements
 
-* linux or windows (I failed in trying to compile espeak on Mac)
-* espeak http://espeak.sourceforge.net
-* lame http://lame.sourceforge.net/index.php
+* Linux or Windows (I failed in trying to compile espeak on Mac)
+* http://espeak.sourceforge.net
+* http://lame.sourceforge.net/index.php
 
-== author
+== Credits
 
-Dejan Simic ~ http://rors.org
+Author: Dejan Simic ~ http://rors.org
