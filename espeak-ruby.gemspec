@@ -2,14 +2,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{espeak-ruby}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dejan Simic"]
-  s.date = %q{2009-02-17}
+  s.date = %q{2009-02-18}
   s.description = %q{espeak-ruby is small Ruby API for utilizing ‘espeak’ and ‘lame’ to create Text-To-Speech mp3 files}
   s.email = %q{desimic@gmail.com}
-  s.files = ["README.rdoc", "VERSION.yml", "lib/espeak-ruby.rb"]
+  s.files = ["README.rdoc", "VERSION.yml", "lib/espeak-ruby.rb", "lib/hash_ext.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/dejan/espeak-ruby}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
