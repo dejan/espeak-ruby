@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/../lib/speaker'
+require File.dirname(__FILE__) + '/../lib/espeak-ruby'
 
-mp3_file = Speaker::Mp3.create "Guten Tag", :lang => :de
+include ESpeak
+mp3_file = espeak("Guten Tag", :lang => :de)
 puts "Successfully created #{mp3_file}!"

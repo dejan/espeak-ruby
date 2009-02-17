@@ -1,24 +1,22 @@
-= speaker
+= espeak-ruby
 
-Speaker is the unified Ruby API for various Text-To-Speech software (currently espeak and festival)
+espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-To-Speech mp3 files.
 
-== example
+* http://espeak.sourceforge.net - eSpeak is a compact open source software speech synthesizer for English and other languages, for Linux and Windows. 
+* http://lame.sourceforge.net - LAME is a high quality MPEG Audio Layer III (MP3) encoder licensed under the LGPL. 
 
-	Speaker::Mp3.create("Hello World")
+== examples
 
-... or if you want to be explicit about what tts software should be used:
-
-	Speaker::Mp3.create("Hello World", :tts => :festival)
+	include ESpeak
+	espeak("Hello World")
+	espeak("Guten Tag", :lang => :de)
 
 == requirements
 
-* linux
-* festival http://www.cstr.ed.ac.uk/projects/festival/
+* linux or windows (I failed in trying to compile espeak on Mac)
 * espeak http://espeak.sourceforge.net
 * lame http://lame.sourceforge.net/index.php
 
 == author
 
-Dejan Simic
-desimic@gmail.com
-http://rors.org
+Dejan Simic ~ http://rors.org
