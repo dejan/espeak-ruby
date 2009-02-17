@@ -21,6 +21,10 @@ espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-T
 * http://espeak.sourceforge.net
 * http://lame.sourceforge.net/index.php
 
+== Related
+
+* http://github.com/dejan/espeak-http - Micro web app for Text-To-Speech conversion via HTTP powered by Ruby, Sinatra, lame, espeak and espeak-ruby
+
 == Credits
 
 Author: Dejan Simic ~ http://rors.org
