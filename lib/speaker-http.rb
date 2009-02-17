@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
-require 'speaker'
+
+require File.dirname(__FILE__) + '/speaker'
 
 get '/speaker' do
   text = params[:text]

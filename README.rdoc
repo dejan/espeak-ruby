@@ -8,7 +8,7 @@ Speaker is the unified Ruby API for various Text-To-Speech software (currently e
 
 ... or if you want to be explicit about what tts software should be used:
 
-	Speaker::Espeak::Mp3.create("Hello World")
+	Speaker::Espeak::Mp3.create("Hello World", :tts => :espeak)
 
 == requirements
 
