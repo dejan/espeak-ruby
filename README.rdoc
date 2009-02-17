@@ -12,8 +12,9 @@ Speaker is the unified Ruby API for various Text-To-Speech software (currently e
 
 == requirements
 
-* festival(unix) http://www.cstr.ed.ac.uk/projects/festival/
-  or espeak(runs only in linux) espeak.sourceforge.net
+* linux
+* festival http://www.cstr.ed.ac.uk/projects/festival/
+* espeak http://espeak.sourceforge.net
 * lame http://lame.sourceforge.net/index.php
 
 == author
