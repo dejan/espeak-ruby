@@ -6,8 +6,11 @@ espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-T
 * http://lame.sourceforge.net - LAME is a high quality MPEG Audio Layer III (MP3) encoder licensed under the LGPL. 
 
 == examples
+	require 'rubygems'
+	require 'espeak-ruby'
 
 	include ESpeak
+
 	espeak("Hello World")
 	espeak("Guten Tag", :lang => :de)
 
