@@ -4,7 +4,7 @@ module Speaker
       options = {:filename => "test.mp3"}
       options.merge!(opts)
       
-      if system(%{echo "#{sanitize(text.to_s)}" | text2wave | lame --alt-preset cbr 16 -a --resample 11 --lowpass 5 --athtype 2 -X3 - > #{options[:filename]} 2> /dev/null})
+      if system(%{echo "#{sanitize(text.to_s)}" | text2wave | lame --alt-preset cbr 16 -a --resample 11 --lowpass 5 -X3 - > #{options[:filename]}})
         options[:filename]
       else
         raise "Error while running festival. You don't seem to have festival or lame installed ..." 
