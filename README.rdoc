@@ -13,7 +13,7 @@ espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-T
 	include ESpeak
 
 	espeak("Hello World")
-	espeak("Guten Tag", :lang => :de)
+	espeak("Guten Tag", :v => "de")
 
 == Requirements
 
