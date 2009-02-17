@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'digest/sha1'
+require File.dirname(__FILE__) + "/hash_ext.rb"
 
 module ESpeak
 
@@ -14,24 +15,10 @@ module ESpeak
     sanitized_text = text.gsub(/(!|\?|"|`|\\)/, ' ')
     filename = Digest::SHA1.hexdigest(options.to_s)
 
-    if system(%$espeak "#{sanitized_text}" --stdout -v#{options[:lang]} -p#{options[:pitch]} -s#{options[:speed]} | lame -V2 - #{filename}$)
+    if system(%$espeak "#{sanitized_text}" --stdout -v#{options[:v]} -p#{options[:p]} -s#{options[:s]} | lame -V2 - #{filename}$)
       filename
     else
       raise "Error while running espeak. You don't seem to have espeak or lame installed ..." 
     end
   end
-
-private
-
-  def symbolize_keys
-    inject({}) do |options, (key, value)|
-      options[(key.to_sym rescue key) || key] = value
-      options
-    end
-  end
-
-  def symbolize_keys!
-    self.replace(self.symbolize_keys)
-  end
-
 end
