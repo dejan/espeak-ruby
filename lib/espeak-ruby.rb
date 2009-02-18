@@ -13,7 +13,7 @@ module ESpeak
     }.merge(opts)
     
     sanitized_text = text.gsub(/(!|\?|"|`|\\)/, ' ')
-    filename = Digest::SHA1.hexdigest(textrm + options.to_s + ".mp3")
+    filename = Digest::SHA1.hexdigest(text + options.to_s + ".mp3")
 
     if system(%$espeak "#{sanitized_text}" --stdout -v#{options[:v]} -p#{options[:p]} -s#{options[:s]} | lame -V2 - #{filename}$)
       filename
