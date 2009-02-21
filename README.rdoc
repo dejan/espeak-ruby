@@ -15,23 +15,26 @@ espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-T
 	require 'espeak-ruby'
 
 	include ESpeak
-
-	espeak("Hello World")
-	espeak("Guten Tag", :v => "de")
+  
+	# Creates hello.mp3 file
+	espeak("hello.mp3", :text => "Hello World") 
+	
+	# Creates /home/espeak/hello-de.mp3 file
+	espeak("/home/espeak/hello-de.mp3", :text => Guten Tag", :voice => "de")
 
 == Features
 
 Currently only subset of espeak features is supported. 
 
 	default_options = {
-	  :v => 'en',   # use voice file of this name from espeak-data/voices
-	  :p => 50,     # pitch adjustment, 0 to 99
-	  :s => 170     # speed in words per minute, 80 to 370
+	  :voice => 'en',   # use voice file of this name from espeak-data/voices
+	  :pitch => 50,     # pitch adjustment, 0 to 99
+	  :speed => 170     # speed in words per minute, 80 to 370
 	}
 
 This can be easily overriden:
 
-	espeak("Zdravo svete", :v => "sr", :p => 90, :s => 200)
+	espeak("zdravo.mp3", :text => "Zdravo svete", :voice => "sr", :pitch => 90, :speed => 200)
 
 == Requirements
 

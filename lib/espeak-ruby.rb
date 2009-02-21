@@ -1,24 +1,60 @@
 require 'rubygems'
-require 'digest/sha1'
 require File.dirname(__FILE__) + "/hash_ext.rb"
 
 module ESpeak
-
-  def espeak(text, opts = {})
-    opts.symbolize_keys!
-    options = {
-      :v => 'en',   # use voice file of this name from espeak-data/voices
-      :p => 50,     # pitch adjustment, 0 to 99
-      :s => 170     # speed in words per minute, 80 to 370
-    }.merge(opts)
-    
-    sanitized_text = text.gsub(/(!|\?|"|`|\\)/, ' ')
-    filename = Digest::SHA1.hexdigest(text + options.to_s) + ".mp3"
-
-    if system(%$espeak "#{sanitized_text}" --stdout -v#{options[:v]} -p#{options[:p]} -s#{options[:s]} | lame -V2 - #{filename}$)
-      filename
+  
+  # 
+  # Generates mp3 file as a result of Text-To-Speech conversion. 
+  #
+  # filename - The file that will be generated
+  # options  - Posible key, values
+  #    :voice     - use voice file of this name from espeak-data/voices. ie 'en', 'de', ...
+  #    :pitch     - pitch adjustment, 0 to 99
+  #    :speed     - speed in words per minute, 80 to 370
+  #
+  def espeak(filename, options)
+    if execute_system_command(filename, prepare_options(options))
+      nil
     else
-      raise "Error while running espeak. You don't seem to have espeak or lame installed ..." 
+      raise "Error while running espeak. You don't seem to have espeak or lame installed ..."
     end
+  end
+
+private
+
+  def prepare_options(options)
+    options.symbolize_keys!
+    raise "You must provide value for :text key in options" unless options[:text]
+    sanitize_text!(options[:text])
+    default_espeak_options.merge(options)
+  end
+
+  # espeak has problems handling
+  # some characters (it dies)
+  #
+  def sanitize_text!(text)
+    text.gsub!(/(!|\?|"|`|\\)/, ' ')
+  end
+
+  # Although espeak itself has default options 
+  # I'm defining them here for easier generating
+  # command (with simple hash.merge)
+  #
+  def default_espeak_options
+    { :voice => 'en',
+      :pitch => 50,
+      :speed => 170 }
+  end
+
+  def execute_system_command(filename, options)
+    system([espeak_command(options), lame_command(filename)] * " | ")
+  end
+
+  def espeak_command(options)
+    %|espeak "#{options[:text]}" --stdout -v#{options[:voice]} -p#{options[:pitch]} -s#{options[:speed]}|
+  end
+
+  def lame_command(filename)
+    "lame -V2 - #{filename}"
   end
 end
