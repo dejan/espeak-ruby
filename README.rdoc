@@ -37,7 +37,6 @@ This can be easily overriden:
 
 == Requirements
 
-* Linux or Windows (I failed in trying to compile espeak on Mac)
 * http://espeak.sourceforge.net
 * http://lame.sourceforge.net/index.php
 
