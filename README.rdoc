@@ -7,7 +7,7 @@ espeak-ruby is small Ruby API for utilizing 'espeak' and 'lame' to create Text-T
 
 == Install
 
-  sudo gem install dejan-espeak-ruby --source http://gems.github.com
+  sudo gem install espeak-ruby
 
 == Example
 
