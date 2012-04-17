@@ -29,6 +29,7 @@ Currently only subset of espeak features is supported.
   :voice => 'en',   # use voice file of this name from espeak-data/voices
   :pitch => 50,     # pitch adjustment, 0 to 99
   :speed => 170     # speed in words per minute, 80 to 370
+  :quiet => true    # prevent espeak-ruby from printing to stdout. (default false)
 
 
 These are default values, and they can be easily overridden:

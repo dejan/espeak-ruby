@@ -11,6 +11,7 @@ module ESpeak
   #    :voice     - use voice file of this name from espeak-data/voices. ie 'en', 'de', ...
   #    :pitch     - pitch adjustment, 0 to 99
   #    :speed     - speed in words per minute, 80 to 370
+  #    :quiet     - remove printing to stdout. Affects only lame (default false) 
   #
   def espeak(filename, options)
     if execute_system_command(filename, prepare_options(options))
@@ -47,14 +48,14 @@ private
   end
 
   def execute_system_command(filename, options)
-    system([espeak_command(options), lame_command(filename)] * " | ")
+    system([espeak_command(options), lame_command(filename, options)] * " | ")
   end
 
   def espeak_command(options)
     %|espeak "#{options[:text]}" --stdout -v#{options[:voice]} -p#{options[:pitch]} -s#{options[:speed]}|
   end
 
-  def lame_command(filename)
-    "lame -V2 - #{filename}"
+  def lame_command(filename, options)
+    "lame -V2 - #{filename} #{'--quiet' if options[:quiet] == true}"
   end
 end
