@@ -1,7 +1,7 @@
 Gem::Specification.new do |gem|
   gem.name = 'espeak-ruby'
   gem.version = '0.4.0'
-  gem.date = Date.today.to_s
+  gem.date = '2012-04-16'
 
   gem.summary = "espeak-ruby is small Ruby API for utilizing ‘espeak’ and ‘lame’ to create Text-To-Speech mp3 files"
   gem.description = "espeak-ruby is small Ruby API for utilizing ‘espeak’ and ‘lame’ to create Text-To-Speech mp3 files"
