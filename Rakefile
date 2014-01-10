@@ -1,10 +1,10 @@
-require 'rake'
+require 'rake/testtask'
 
-desc 'Run all specs'
-task :spec do
-  system('spec spec')
+desc 'Default: run tests'
+task :default => :test
+
+desc 'Test espeak-ruby'
+Rake::TestTask.new(:test) do |t|
+  t.pattern = 'test/**/*_test.rb'
 end
-
-desc 'Default: run specs.'
-task :default => :spec
 
