@@ -1,7 +1,7 @@
 espeak-ruby
 ===========
 
-espeak-ruby is a small Ruby API for utilizing [espeak](http://espeak.sourceforge.net) and [lame](http://lame.sourceforge.net/) to create Text-To-Speech mp3 files.
+espeak-ruby is a small Ruby API for utilizing [espeak](http://espeak.sourceforge.net) and [lame](http://lame.sourceforge.net/) to create Text-To-Speech mp3 files. It can also just speak (without saving).
 See the [live demo](http://rors.org/demos/espeak-ruby).
 
 Install
