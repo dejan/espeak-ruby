@@ -14,11 +14,17 @@ module ESpeak
       @options = options
     end
 
+    # Speaks text 
+    # 
+    def speak
+      system(espeak_command(command_options))
+    end
+
     # Generates mp3 file as a result of 
     # Text-To-Speech conversion. 
     # 
-    def save!(filename)
-      execute_system_command(filename, default_options.merge(symbolize_keys(options)))
+    def save(filename)
+      system(espeak_command(command_options, "--stdout") + " | " + lame_command(filename, command_options))
     end
 
     # espeak dies handling some chars
@@ -29,6 +35,10 @@ module ESpeak
     end
 
     private
+
+    def command_options
+      default_options.merge(symbolize_keys(options))
+    end
 
     # Although espeak itself has default options 
     # I'm defining them here for easier generating
@@ -41,8 +51,8 @@ module ESpeak
         :quiet => true }
     end
 
-    def espeak_command(options)
-      %|espeak "#{sanitized_text}" --stdout -v#{options[:voice]} -p#{options[:pitch]} -s#{options[:speed]}|
+    def espeak_command(options, flags="")
+      %|espeak "#{sanitized_text}" #{flags} -v#{options[:voice]} -p#{options[:pitch]} -s#{options[:speed]}|
     end
 
     def lame_command(filename, options)
@@ -50,9 +60,7 @@ module ESpeak
     end
 
     def execute_system_command(filename, options)
-      system(
-        espeak_command(options) + " | " + lame_command(filename, options))
-    end
+     end
 
     def symbolize_keys(hash)
       hash.inject({}) do |options, (key, value)|

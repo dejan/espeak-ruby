@@ -7,24 +7,23 @@ See the [live demo](http://rors.org/demos/espeak-ruby).
 Install
 -------
 
-```
-gem install espeak-ruby
+Add _espeak-ruby_ to Gemfile
+
+```ruby
+gem "espeak-ruby", require: "espeak"
 ```
 
 Example
 -------
 
 ```ruby
-require 'rubygems'
-require 'espeak-ruby'
-
-include ESpeak
-
-# Creates hello.mp3 file
-espeak("hello.mp3", :text => "Hello World") 
+# Speaks "YO!"
+speech = ESpeak::Speech.new("YO!")
+speech.speak # invokes espeak
   
-# Creates /home/espeak/hello-de.mp3 file
-espeak("/home/espeak/hello-de.mp3", :text => "Hallo Welt", :voice => "de")
+# Creates hello-de.mp3 file
+speech = ESpeak::Speech.new("Hallo Welt", voice: "de")
+speech.save("hello-de.mp3") # invokes espeak + lame
 ```
 
 Features
@@ -33,16 +32,15 @@ Features
 Currently only subset of espeak features is supported. 
 
 ```ruby
-:voice => 'en'   # use voice file of this name from espeak-data/voices
-:pitch => 50     # pitch adjustment, 0 to 99
-:speed => 170    # speed in words per minute, 80 to 370
-:quiet => true    # prevent espeak-ruby from printing to stdout. (default false)
+:voice => 'en'    # use voice file of this name from espeak-data/voices
+:pitch => 50      # pitch adjustment, 0 to 99
+:speed => 170     # speed in words per minute, 80 to 370
 ```
 
 These are default values, and they can be easily overridden:
 
 ```ruby
-espeak("zdravo.mp3", :text => "Zdravo svete", :voice => "sr", :pitch => 90, :speed => 200)
+ESpeak::Speech.new("Zdravo svete", voice: "sr", pitch: 90, speed: 200).speak
 ```
 
 Requirements
