@@ -59,9 +59,6 @@ module ESpeak
       "lame -V2 - #{filename} #{'--quiet' if options[:quiet] == true}"
     end
 
-    def execute_system_command(filename, options)
-     end
-
     def symbolize_keys(hash)
       hash.inject({}) do |options, (key, value)|
         options[(key.to_sym rescue key) || key] = value
