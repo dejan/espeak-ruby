@@ -13,17 +13,31 @@ Add _espeak-ruby_ to Gemfile
 gem "espeak-ruby", require: "espeak"
 ```
 
-Example
--------
+Examples
+--------
+
+First you need to include ESpeak module to access espeak API
+
+```ruby
+include ESpeak
+```
+
+Then use it like this:
 
 ```ruby
 # Speaks "YO!"
-speech = ESpeak::Speech.new("YO!")
+speech = Speech.new("YO!")
 speech.speak # invokes espeak
   
 # Creates hello-de.mp3 file
-speech = ESpeak::Speech.new("Hallo Welt", voice: "de")
+speech = Speech.new("Hallo Welt", voice: "de")
 speech.save("hello-de.mp3") # invokes espeak + lame
+
+# Lists voices
+Voice.all.map { |v| v.language } # ["af", "bs", "ca", "cs", "cy", "da", "de", "el", "en", "en-sc", "en-uk", "en-uk-north", "en-uk-rp", "en-uk-wmids", "en-us", "en-wi", "eo", "es", "es-la", "fi", "fr", "fr-be", "grc", "hi", "hr", "hu", "hy", "hy", "id", "is", "it", "jbo", "ka", "kn", "ku", "la", "lv", "mk", "ml", "nci", "nl", "no", "pap", "pl", "pt", "pt-pt", "ro", "ru", "sk", "sq", "sr", "sv", "sw", "ta", "tr", "vi", "zh", "zh-yue"]
+
+# Find particular voice 
+Voice.find_by_language('en') #<ESpeak::Voice:0x007fe1d3806be8 @language="en", @name="default", @gender="M", @file="default">
 ```
 
 Features
@@ -40,7 +54,7 @@ Currently only subset of espeak features is supported.
 These are default values, and they can be easily overridden:
 
 ```ruby
-ESpeak::Speech.new("Zdravo svete", voice: "sr", pitch: 90, speed: 200).speak
+Speech.new("Zdravo svete", voice: "sr", pitch: 90, speed: 200).speak
 ```
 
 Requirements
