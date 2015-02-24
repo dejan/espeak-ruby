@@ -29,10 +29,18 @@ module ESpeak
       system(espeak_command(command_options, "--stdout") + " | " + lame_command(filename, command_options))
     end
 
-    # Returns wav file bytes as a result of
+    # Returns mp3 file bytes as a result of
     # Text-To-Speech conversion.
     #
     def bytes()
+      stdout_str, stderr_str, process = Open3.capture3(espeak_command(command_options, "--stdout") + " | " + std_lame_command(command_options))
+      stdout_str
+    end
+
+    # Returns wav file bytes as a result of
+    # Text-To-Speech conversion.
+    #
+    def bytes_wav()
       stdout_str, stderr_str, process = Open3.capture3(espeak_command(command_options, "--stdout"))
       stdout_str
     end
@@ -63,6 +71,10 @@ module ESpeak
 
     def espeak_command(options, flags="")
       %|espeak "#{sanitized_text}" #{flags} -v#{options[:voice]} -p#{options[:pitch]} -s#{options[:speed]}|
+    end
+
+    def std_lame_command(options)
+      lame_command("-", options)
     end
 
     def lame_command(filename, options)
