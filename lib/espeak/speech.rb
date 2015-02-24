@@ -1,3 +1,5 @@
+require 'open3.rb'
+
 module ESpeak
   class Speech
     attr_reader :options, :text
@@ -25,6 +27,14 @@ module ESpeak
     # 
     def save(filename)
       system(espeak_command(command_options, "--stdout") + " | " + lame_command(filename, command_options))
+    end
+
+    # Returns wav file bytes as a result of
+    # Text-To-Speech conversion.
+    #
+    def bytes()
+      stdout_str, stderr_str, process = Open3.capture3(espeak_command(command_options, "--stdout"))
+      stdout_str
     end
 
     # espeak dies handling some chars
