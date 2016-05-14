@@ -1,3 +1,5 @@
+require 'open3.rb'
+
 module ESpeak
   class Speech
     attr_reader :options, :text
@@ -19,40 +21,37 @@ module ESpeak
     # Speaks text
     #
     def speak
-      IO.popen(espeak_command(command_options), 'r').read
+      system(espeak_command(command_options))
     end
 
     # Generates mp3 file as a result of
     # Text-To-Speech conversion.
     #
     def save(filename)
-      speech = bytes_wav
-      res = IO.popen(lame_command(filename, command_options), 'r+') do |process|
-        process.write(speech)
-        process.close_write
-        process.read
-      end
-      res.to_s
+      system(espeak_command(command_options, "--stdout") + " | " + lame_command(filename, command_options))
     end
 
     # Returns mp3 file bytes as a result of
     # Text-To-Speech conversion.
     #
     def bytes()
-      speech = bytes_wav
-      res = IO.popen(std_lame_command(command_options), 'r+') do |process|
-        process.write(speech)
-        process.close_write
-        process.read
-      end
-      res.to_s
+      stdout_str, stderr_str, process = Open3.capture3(espeak_command(command_options, "--stdout") + " | " + std_lame_command(command_options))
+      stdout_str
     end
 
     # Returns wav file bytes as a result of
     # Text-To-Speech conversion.
     #
     def bytes_wav()
-      IO.popen(espeak_command(command_options, "--stdout"), 'r').read
+      stdout_str, stderr_str, process = Open3.capture3(espeak_command(command_options, "--stdout"))
+      stdout_str
+    end
+
+    # espeak dies handling some chars
+    # this function sanitizes text
+    #
+    def sanitized_text
+      @text.gsub(/(!|\?|"|`|\\)/, ' ').strip
     end
 
     private
@@ -74,7 +73,7 @@ module ESpeak
     end
 
     def espeak_command(options, flags="")
-      ['espeak', "#{@text}", "#{flags}", "-v#{options[:voice]}", "-p#{options[:pitch]}", "-k#{options[:capital]}", "-s#{options[:speed]}"]
+      %|espeak "#{sanitized_text}" #{flags} -v#{options[:voice]} -p#{options[:pitch]} -k#{options[:capital]} -s#{options[:speed]}|
     end
 
     def std_lame_command(options)
@@ -82,7 +81,7 @@ module ESpeak
     end
 
     def lame_command(filename, options)
-      ['lame', '-V2', '-', "#{filename}", "#{'--quiet' if options[:quiet] == true}"]
+      "lame -V2 - #{filename} #{'--quiet' if options[:quiet] == true}"
     end
 
     def symbolize_keys(hash)
