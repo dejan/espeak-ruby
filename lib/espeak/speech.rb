@@ -19,7 +19,9 @@ module ESpeak
     # Speaks text
     #
     def speak
-      IO.popen(espeak_command(command_options), 'r').read
+      IO.popen(espeak_command(command_options), 'r') do |process|
+        process.read
+      end
     end
 
     # Generates mp3 file as a result of
@@ -52,7 +54,9 @@ module ESpeak
     # Text-To-Speech conversion.
     #
     def bytes_wav()
-      IO.popen(espeak_command(command_options, "--stdout"), 'r').read
+      IO.popen(espeak_command(command_options, "--stdout"), 'r') do |process|
+        process.read
+      end
     end
 
     private
