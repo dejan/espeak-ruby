@@ -3,11 +3,6 @@ require "test_helper"
 class VoiceTest < Test::Unit::TestCase
   include ESpeak
 
-  def setup
-    voices_file = File.read("test/fixtures/voices.txt")
-    Voice.expects(:espeak_voices).returns(voices_file)
-  end
-
   def test_all
     all_voices = Voice.all
     assert all_voices.size > 0
