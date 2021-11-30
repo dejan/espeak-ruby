@@ -1,0 +1,4 @@
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  TargetRubyVersion: 2.5
