@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ESpeak
-  # some
+  # Speech represents an Text-To-Speech audio that can be played or saved to file
   class Speech
     attr_reader :options, :text
 
@@ -61,7 +61,7 @@ module ESpeak
     private
 
     def command_options
-      default_options.merge(symbolize_keys(options))
+      default_options.merge(options.transform_keys(&:to_sym))
     end
 
     # Although espeak itself has default options
@@ -87,16 +87,6 @@ module ESpeak
 
     def lame_command(filename, options)
       ['lame', '-V2', '-', filename.to_s, ('--quiet' if options[:quiet] == true).to_s]
-    end
-
-    def symbolize_keys(hash)
-      hash.transform_keys do |key|
-        begin
-          key.to_sym
-        rescue StandardError
-          key
-        end || key
-      end
     end
   end
 end
