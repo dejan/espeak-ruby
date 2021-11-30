@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module ESpeak
+  # some
   class Speech
     attr_reader :options, :text
 
@@ -11,7 +14,7 @@ module ESpeak
     #                 no range given in man but good range is 10-40 to start
     #    :quiet     - remove printing to stdout. Affects only lame (default false)
     #
-    def initialize(text, options={})
+    def initialize(text, options = {})
       @text = text
       @options = options
     end
@@ -19,9 +22,7 @@ module ESpeak
     # Speaks text
     #
     def speak
-      IO.popen(espeak_command(command_options), 'r') do |process|
-        process.read
-      end
+      IO.popen(espeak_command(command_options), 'r', &:read)
     end
 
     # Generates mp3 file as a result of
@@ -40,7 +41,7 @@ module ESpeak
     # Returns mp3 file bytes as a result of
     # Text-To-Speech conversion.
     #
-    def bytes()
+    def bytes
       speech = bytes_wav
       res = IO.popen(std_lame_command(command_options), 'r+') do |process|
         process.write(speech)
@@ -53,10 +54,8 @@ module ESpeak
     # Returns wav file bytes as a result of
     # Text-To-Speech conversion.
     #
-    def bytes_wav()
-      IO.popen(espeak_command(command_options, "--stdout"), 'r') do |process|
-        process.read
-      end
+    def bytes_wav
+      IO.popen(espeak_command(command_options, '--stdout'), 'r', &:read)
     end
 
     private
@@ -70,29 +69,33 @@ module ESpeak
     # command (with simple hash.merge)
     #
     def default_options
-      { :voice => 'en',
-        :pitch => 50,
-        :speed => 170,
-        :capital => 1,
-        :quiet => true }
+      { voice: 'en',
+        pitch: 50,
+        speed: 170,
+        capital: 1,
+        quiet: true }
     end
 
-    def espeak_command(options, flags="")
-      ['espeak', "#{@text}", "#{flags}", "-v#{options[:voice]}", "-p#{options[:pitch]}", "-k#{options[:capital]}", "-s#{options[:speed]}"]
+    def espeak_command(options, flags = '')
+      ['espeak', @text.to_s, flags.to_s, "-v#{options[:voice]}", "-p#{options[:pitch]}", "-k#{options[:capital]}",
+       "-s#{options[:speed]}"]
     end
 
     def std_lame_command(options)
-      lame_command("-", options)
+      lame_command('-', options)
     end
 
     def lame_command(filename, options)
-      ['lame', '-V2', '-', "#{filename}", "#{'--quiet' if options[:quiet] == true}"]
+      ['lame', '-V2', '-', filename.to_s, ('--quiet' if options[:quiet] == true).to_s]
     end
 
     def symbolize_keys(hash)
-      hash.inject({}) do |options, (key, value)|
-        options[(key.to_sym rescue key) || key] = value
-        options
+      hash.transform_keys do |key|
+        begin
+          key.to_sym
+        rescue StandardError
+          key
+        end || key
       end
     end
   end

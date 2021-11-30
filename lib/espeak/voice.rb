@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module ESpeak
+  # A voice that will be used for `Speech`
   class Voice
     attr_reader :language, :name, :gender, :file
 
@@ -11,11 +14,12 @@ module ESpeak
 
     def self.all
       voices = []
-      result = IO.popen('espeak --voices') { |process| process.read }
+      result = IO.popen('espeak --voices', &:read)
       result.each_line do |line|
         next unless line.start_with?(' ') # header
-        row = line.split(' ')
-        voices << Voice.new(language: row[1], gender: row[2], name: row[3], file: row[4] )
+
+        row = line.split
+        voices << Voice.new(language: row[1], gender: row[2], name: row[3], file: row[4])
       end
       voices.freeze
     end
