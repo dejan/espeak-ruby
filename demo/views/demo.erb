@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>espeak-ruby demo</title>
+    <link rel="stylesheet" href="/css/bulma-0.9.3.min.css">
+    <link rel="stylesheet" href="/css/bulma-slider-2.0.4.min.css">
+
+    <script src="/js/wavesurfer-5.2.0.js"></script>
+    <script src="/js/bulma-slider-2.0.4.min.js"></script>
+
+    <script type="module">
+      import { Application, Controller } from "/js/stimulus-3.0.1.js"
+      window.Stimulus = Application.start()
+      Stimulus.register("demo", class Demo extends Controller {
+        static targets = [
+          "form",
+          "input",
+          "player",
+          "audio",
+          "wave",
+          "voice",
+          "pitch",
+          "speed"
+        ];
+
+        static options = {
+          container: '#waveform',
+          responsive: true,
+          interact: false,
+          cursorWidth: 0,
+          height: 150
+        };
+
+        connect() {
+          WaveSurfer.create(Demo.options).load("/tts");
+          this.formTarget.text.select();
+        }
+
+        submit() {
+          event.preventDefault();
+          this.waveTarget.innerHTML = "<div id='waveform'></div>";
+          var wavesurfer = WaveSurfer.create(Demo.options);
+          wavesurfer.load("/tts" +
+            "?text=" + this.inputTarget.value +
+            '&voice=' + this.voiceTarget.value +
+            "&pitch=" + this.pitchTarget.value +
+            "&speed=" + this.speedTarget.value
+          );
+          wavesurfer.on('ready', function () {
+            wavesurfer.play();
+          });
+          this.formTarget.text.select();
+        }
+      })
+    </script>
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="container" data-controller="demo">
+        <h1 class="title">Text-to-speech demo</h1>
+        <div id="wave" data-demo-target="wave" ><div id='waveform'></div></div>
+        <form name="form" action="tts" data-demo-target="form" method="post" data-action="demo#submit">
+          <div class="field">
+            <label class="label">Enter some text and press enter:</label>
+            <div class="control">
+              <input type="text" name="text" class="input" data-demo-target="input" placeholder="Type something ..." value=""></input>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Voice:</label>
+            <div class="select">
+              <select name="voice" data-demo-target="voice"  data-action="demo#submit">
+                <% for voice in @voices %>
+                  <option value="<%= voice.language %>" <%= voice.language == 'en' ? 'selected="selected"' : '' %>><%= voice.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Pitch</label>
+            <input class="slider is-fullwidth" step="1" min="0" max="99" value="50" type="range" data-demo-target="pitch" data-action="demo#submit"/>
+          </div>
+          <div class="field">
+            <label class="label">Speed</label>
+            <input class="slider is-fullwidth" step="1" min="80" max="370" value="170" type="range" data-demo-target="speed" data-action="demo#submit"/>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          Made by <a href="https://github.com/dejan" target="_blank">Dejan Simic</a> as a demo for
+          <a href="https://github.com/dejan/espeak-ruby" target="_blank"">espeak-ruby</a>.
+          <br/>Powered also by
+          <a href="http://espeak.sourceforge.net/" target="_blank">espeak</a> itself,
+          <a href="https://lame.sourceforge.io/" target="_blank">lame</a>,
+          <a href="https://github.com/jeremyevans/roda" target="_blank"">roda</a>,
+          <a href="https://stimulus.hotwired.dev/" target="_blank"">stimulus</a>,
+          <a href="https://bulma.io/" target="_blank">bulma</a>,
+          <a href="https://github.com/Wikiki/bulma-slider" target="_blank">bulma-slider</a>  and
+          <a href="https://wavesurfer-js.org/" target="_blank">wavesurfer</a>.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
