@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: espeak-ingress
+  namespace: espeak
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  tls:
+   - hosts:
+     - "espeak.rors.org"
+     secretName: "espeak-tls"
+  rules:
+  - host: "espeak.rors.org"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: espeak-service
+            port:
+              number: 80

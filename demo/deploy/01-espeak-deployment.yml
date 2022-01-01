@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: espeak
+  name: espeak-deployment
+  labels:
+    app: espeak
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: espeak
+  template:
+    metadata:
+      labels:
+        app: espeak
+    spec:
+      containers:
+        - name: espeak
+          image: ghcr.io/$GITHUB_REPOSITORY:$GITHUB_SHA
+          ports:
+            - containerPort: 9292
+      imagePullSecrets:
+        - name: ghcr-credentials
