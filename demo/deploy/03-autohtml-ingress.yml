@@ -4,7 +4,7 @@ metadata:
   name: espeak-ingress
   namespace: espeak
   annotations:
-    kubernetes.io/ingress.class: nginx 
+    kubernetes.io/ingress.class: public # nginx 
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   tls:
