@@ -12,6 +12,7 @@ module ESpeak
     #    :speed     - speed in words per minute, 80 to 370
     #    :capital   - increase emphasis of capitalized letters by raising pitch by this amount
     #                 no range given in man but good range is 10-40 to start
+    #    :amplitude - amplitude adjustment, 0 to 200
     #    :quiet     - remove printing to stdout. Affects only lame (default false)
     #
     def initialize(text, options = {})
@@ -73,12 +74,13 @@ module ESpeak
         pitch: 50,
         speed: 170,
         capital: 1,
+        amplitude: 100,
         quiet: true }
     end
 
     def espeak_command(options, flags = '')
       ['espeak', @text.to_s, flags.to_s, "-v#{options[:voice]}", "-p#{options[:pitch]}", "-k#{options[:capital]}",
-       "-s#{options[:speed]}"]
+       "-s#{options[:speed]}", "-a#{options[:amplitude]}"]
     end
 
     def std_lame_command(options)
