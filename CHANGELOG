@@ -1,3 +1,7 @@
+## v1.1.0, May 14, 2016
+
+* Add support for espeak's -a flag for managing amplitude. by @Animesh-Ghosh
+
 ## v1.0.3, May 14, 2016
 
 * Remove `sanitized_text` method and use `IO.popen` rather than `system` to prevent command injection. by @bcoles
