@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
    - hosts:
-     - "espeak.rors.org"
+     - "espeak.makeme.tools"
      secretName: "espeak-tls"
   rules:
-  - host: "espeak.rors.org"
+  - host: "espeak.makeme.tools"
     http:
       paths:
       - pathType: Prefix
