@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    espeak-ruby (1.0.5)
+    espeak-ruby (1.1.0)
 
 GEM
   remote: http://rubygems.org/
