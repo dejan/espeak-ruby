@@ -28,23 +28,11 @@ module ESpeak
 
     # Generates mp3 file as a result of
     # Text-To-Speech conversion.
+    #   this method takes an optional speech param (bytes to save)
+    #   can be used with the combined output of many text to speech conversions
     #
-    def save(filename)
-      speech = bytes_wav
-      res = IO.popen(lame_command(filename, command_options), 'r+') do |process|
-        process.write(speech)
-        process.close_write
-        process.read
-      end
-      res.to_s
-    end
-
-    # Generates mp3 file as a result of
-    # Text-To-Speech conversion.
-    # this method takes an additonal input of bytes to save
-    # can be used with the combined output of many text to speech conversions
-    #
-    def save_bytes(filename, speech)
+    def save(filename, speech = nil)
+      speech = bytes_wav if speech.nil?
       res = IO.popen(lame_command(filename, command_options), 'r+') do |process|
         process.write(speech)
         process.close_write
