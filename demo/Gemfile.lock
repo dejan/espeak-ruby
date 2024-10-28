@@ -24,7 +24,8 @@ GEM
     regexp_parser (2.1.1)
     rerun (0.13.1)
       listen (~> 3.0)
-    rexml (3.2.5)
+    rexml (3.3.6)
+      strscan
     roda (3.50.0)
       rack
     rspec (3.10.0)
@@ -52,6 +53,7 @@ GEM
     rubocop-ast (1.14.0)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
+    strscan (3.1.0)
     tilt (2.0.10)
     unicode-display_width (2.1.0)
 
