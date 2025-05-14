@@ -18,9 +18,6 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.5.0'
 
-  gem.add_development_dependency 'rake', '~> 13.0.6'
-  gem.add_development_dependency 'rubocop', '~> 1.23'
-  gem.add_development_dependency 'test-unit', '~> 3.5'
   gem.metadata = {
     'rubygems_mfa_required' => 'true'
   }

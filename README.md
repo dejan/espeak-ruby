@@ -54,7 +54,7 @@ Speech.new("Zdravo svete", voice: "sr", pitch: 90, speed: 200).speak
 
 ### Ubuntu
 
-    apt-get install espeak lame
+    sudo apt-get install espeak lame
 
 ## Licence
 
