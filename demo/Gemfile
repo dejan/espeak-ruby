@@ -10,3 +10,5 @@ gem 'roda'
 gem 'rspec'
 gem 'rubocop'
 gem 'tilt'
+
+gem "racc", "~> 1.8"
